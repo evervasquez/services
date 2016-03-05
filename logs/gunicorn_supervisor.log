@@ -1,0 +1,95 @@
+Starting hello_app as pever
+[2016-03-05 18:22:07 +0000] [10565] [DEBUG] Current configuration:
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f9cd15dc048>
+  post_request: <function PostRequest.post_request at 0x7f9cd15dc7b8>
+  worker_class: sync
+  chdir: /home/pever/denizx/ruc_service
+  umask: 0
+  secure_scheme_headers: {'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on', 'X-FORWARDED-PROTOCOL': 'ssl'}
+  forwarded_allow_ips: ['127.0.0.1']
+  paste: None
+  proxy_allow_ips: ['127.0.0.1']
+  ssl_version: 3
+  ca_certs: None
+  worker_connections: 1000
+  graceful_timeout: 30
+  keepalive: 2
+  logger_class: gunicorn.glogging.Logger
+  spew: False
+  syslog_addr: udp://localhost:514
+  when_ready: <function WhenReady.when_ready at 0x7f9cd15d6ae8>
+  threads: 1
+  loglevel: debug
+  ciphers: TLSv1
+  pre_exec: <function PreExec.pre_exec at 0x7f9cd15dc510>
+  logconfig: None
+  proc_name: hello_app
+  reload: False
+  on_reload: <function OnReload.on_reload at 0x7f9cd15d6950>
+  backlog: 2048
+  accesslog: None
+  syslog: False
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f9cd15dcae8>
+  tmp_upload_dir: None
+  pythonpath: None
+  keyfile: None
+  do_handshake_on_connect: False
+  group: 1000
+  max_requests_jitter: 0
+  on_starting: <function OnStarting.on_starting at 0x7f9cd15d67b8>
+  timeout: 30
+  bind: ['unix:/home/pever/denizx/run/gunicorn.sock']
+  syslog_prefix: None
+  pre_request: <function PreRequest.pre_request at 0x7f9cd15dc6a8>
+  limit_request_line: 4094
+  max_requests: 0
+  preload_app: False
+  sendfile: None
+  raw_env: []
+  worker_tmp_dir: None
+  django_settings: None
+  cert_reqs: 0
+  suppress_ragged_eofs: True
+  post_fork: <function Postfork.post_fork at 0x7f9cd15d6e18>
+  worker_int: <function WorkerInt.worker_int at 0x7f9cd15dc1e0>
+  config: None
+  workers: 3
+  pre_fork: <function Prefork.pre_fork at 0x7f9cd15d6c80>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f9cd15dc378>
+  on_exit: <function OnExit.on_exit at 0x7f9cd15dcc80>
+  proxy_protocol: False
+  statsd_prefix: 
+  certfile: None
+  user: 1000
+  default_proc_name: ruc_service.wsgi:application
+  daemon: False
+  limit_request_fields: 100
+  worker_exit: <function WorkerExit.worker_exit at 0x7f9cd15dc950>
+  limit_request_field_size: 8190
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: -
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  check_config: False
+  statsd_host: None
+  pidfile: None
+[2016-03-05 18:22:07 +0000] [10565] [INFO] Starting gunicorn 19.4.5
+[2016-03-05 18:22:07 +0000] [10565] [DEBUG] Arbiter booted
+[2016-03-05 18:22:07 +0000] [10565] [INFO] Listening at: unix:/home/pever/denizx/run/gunicorn.sock (10565)
+[2016-03-05 18:22:07 +0000] [10565] [INFO] Using worker: sync
+[2016-03-05 18:22:07 +0000] [10574] [INFO] Booting worker with pid: 10574
+[2016-03-05 18:22:07 +0000] [10576] [INFO] Booting worker with pid: 10576
+[2016-03-05 18:22:07 +0000] [10577] [INFO] Booting worker with pid: 10577
+[2016-03-05 18:22:07 +0000] [10565] [DEBUG] 3 workers
+[2016-03-05 18:29:29 +0000] [10577] [DEBUG] GET /
+Not Found: /
+[2016-03-05 18:29:47 +0000] [10574] [DEBUG] GET /admin
+Not Found: /admin
+[2016-03-05 18:29:47 +0000] [10577] [DEBUG] GET /admin/
+[2016-03-05 18:29:48 +0000] [10574] [DEBUG] GET /admin/login/
+[2016-03-05 18:30:41 +0000] [10576] [DEBUG] GET /
+Not Found: /
+[2016-03-05 18:30:46 +0000] [10574] [DEBUG] GET /admin
+Not Found: /admin
+[2016-03-05 18:30:47 +0000] [10577] [DEBUG] GET /admin/
+[2016-03-05 18:30:48 +0000] [10576] [DEBUG] GET /admin/login/
