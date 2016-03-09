@@ -5,7 +5,9 @@ import json
 import requests
 import random
 from django.http import HttpResponse
-class Ruc_service():
+from django.views.generic import ListView
+
+class Ruc_service(ListView):
 	def randomip():
 		user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36'
 		url = "http://www.google-proxy.net/"
@@ -29,7 +31,7 @@ class Ruc_service():
 			datafin[cont]=datafinal
 			cont=cont+1 
 		num=random.randint(1,len(datafin))
-		return (datafin[num][0]+':'+datafin[num][1])
+		return HttpResponse(datafin[num][0]+':'+datafin[num][1])
 	def _data_Get():
 	    #ip=Ruc_service.randomip()
 	    ip="107.151.136.220:80"
@@ -70,7 +72,7 @@ class Ruc_service():
 	        		data[cont]=borrartdi
 	        		cont=cont+1                
 	    	data[0]=data[0].replace("<root>","")
-	    	return data
+	    	return HttpResponse(str(data), content_type="text/plain")
 	    else:
 	    	if(data1[9]=='Formato JSON'): 
 	        	borrartdf=data1[13:21][0].replace("[","")
@@ -86,7 +88,7 @@ class Ruc_service():
 	        		valor=val.split(':')
 	        		data[cont]=valor[1]
 	        		cont=cont+1
-	        	return data
+	        	return HttpResponse(str(data), content_type="text/plain")
 	    	else:
 	        	data={}
 	        	cont=0
@@ -95,13 +97,10 @@ class Ruc_service():
 	        			values=val.split("=")
 	        			data[cont]=values[1]
 	        			cont=cont+1
-	        	print (data)
-	        	return data
+	        	#print (data)
+	        	return HttpResponse(str(data), content_type="text/plain")
 
-	def do_GET(self):
-	 	self.send_response(200)
-	 	self.end_headers()
-	 	self.wfile.write((self._data_Get()))
-	 	return
+	def get(self,request):
+	 	return (Ruc_service._data_Get())
 
 		
