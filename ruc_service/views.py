@@ -2,11 +2,13 @@ import urllib.request
 import urllib.parse
 import re
 import json
+import time
 import requests
 import random
 from django.http import HttpResponse
 from django.views.generic import ListView
 from timeit import timeit
+from .models import Proxy
 class Ruc_service(ListView):
 	def randomip():
 		user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36'
@@ -93,9 +95,13 @@ class Ruc_service(ListView):
 			headers={'User-Agent':user_agent,'Host':'webservice.miasoftware.net','Upgrade-Insecure-Requests':'1','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Encoding':'gzip,deflate,sdch','Accept-Language':'es-ES,es;q=0.8','Cache-Control':'no-cache','Connection':'keep-alive','Content-type':'text/html; charset=ISO-8859-1'}
 			data = {'ruc':'20600629922'}
 			dat1=urllib.parse.urlencode(data)
-			#print(dat1)
+			filterProxy=Proxy.objects.filter(proxy=ip)
 			r =requests.get('http://webservice.miasoftware.net/service/sunat/test_ruc.php?ruc=20523477006',proxies=proxy,headers=headers,timeout=10)
-			print(r.status_code)
+			if(len(filterProxy.values("proxy"))==0):
+				newProxy = Proxy(proxy=ip,fecha=time.strftime("%Y-%m-%d %H:%M:%S"),cantidad=1)
+				newProxy.save()
+			else:
+				filterProxy.update(fecha=time.strftime("%Y-%m-%d %H:%M:%S"),cantidad=int(filterProxy.values("cantidad")[0]["cantidad"])+1)
 			return r.text
 		except requests.HTTPError as e:
 			print("Checking internet connection failed, status code.".format(e.response.status_code))
