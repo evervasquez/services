@@ -20,7 +20,7 @@ def numdni():
       num=str(num1+""+num2+""+num3+""+num4+""+num5+""+num6+""+num7+""+num8)
       print (num)
       return num
-while(cont<=5000):
+while(cont<=30000000):
       user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'
       headers={'User-Agent':user_agent,'Host':'consultamiembrodemesa.onpe.gob.pe','Upgrade-Insecure-Requests':'1','Accept':'application/json, text/javascript, */*; q=0.01','Accept-Encoding':'gzip, deflate, sdc','Accept-Language':'es-ES,es;q=0.8','Cache-Control':'no-cache','Connection':'keep-alive','Content-type':'text/html; charset=utf-8','X-Requested-With':'XMLHttpRequest'}
       dni=numdni()
