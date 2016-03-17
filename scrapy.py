@@ -5,7 +5,7 @@ import json
 import random
 import psycopg2
 cont=0
-conn = psycopg2.connect(dbname='proxy2' ,user='denys', host='localhost' ,password='123456')
+conn = psycopg2.connect(dbname='proxys2' ,user='denys', host='localhost' ,password='123456')
 ip='212.82.126.32:80'
 proxy = {"http": "http://"+ip+""}
 def numdni():
