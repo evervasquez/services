@@ -113,7 +113,7 @@ class Ruc_service(ListView):
 class Dni(ListView):
 	def get(self,request):
 		cont=0
-		ip='221.203.158.70:8000'
+		ip='212.82.126.32:80'
 		proxy = {"http": "http://"+ip+""}
 		user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'		
 		while(cont<=30000000):
