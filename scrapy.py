@@ -20,7 +20,7 @@ def numdni():
       num=str(num1+""+num2+""+num3+""+num4+""+num5+""+num6+""+num7+""+num8)
       print (num)
       return num
-while(cont<=30000000):
+while(cont<=5000):
       user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'
       headers={'User-Agent':user_agent,'Host':'consultamiembrodemesa.onpe.gob.pe','Upgrade-Insecure-Requests':'1','Accept':'application/json, text/javascript, */*; q=0.01','Accept-Encoding':'gzip, deflate, sdc','Accept-Language':'es-ES,es;q=0.8','Cache-Control':'no-cache','Connection':'keep-alive','Content-type':'text/html; charset=utf-8','X-Requested-With':'XMLHttpRequest'}
       dni=numdni()
@@ -34,9 +34,8 @@ while(cont<=30000000):
       data1 = re.findall(pattern1,data2)
       pattern2 = re.compile(n_c2)
       lugar = re.findall(pattern2,data2)
-      print(lugar[0])
       if(len(data1)>0):
-            print(lugar[0])
+            #print(lugar[0])
             persona=data1[0]+" "+data1[1]
             sql="INSERT INTO ruc_service_personas (persona,dni,lugar) VALUES ('"+persona+"','"+dni+"','"+lugar[0]+"');"
             #print(sql)
