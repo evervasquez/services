@@ -66,8 +66,8 @@ WSGI_APPLICATION = 'ruc_service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'proxys',
-        'USER': 'postgres',
+        'NAME': 'proxys2',
+        'USER': 'denys',
         'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '5432',
