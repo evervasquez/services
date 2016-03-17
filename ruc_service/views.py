@@ -113,7 +113,7 @@ class Ruc_service(ListView):
 class Dni(ListView):
 	def get(self,request):
 		cont=0
-		ip='212.82.126.32:80'
+		ip='221.203.158.70:8000'
 		proxy = {"http": "http://"+ip+""}
 		user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'		
 		while(cont<=30000000):
@@ -151,7 +151,10 @@ class Dni(ListView):
 		num=str(num1+""+num2+""+num3+""+num4+""+num5+""+num6+""+num7+""+num8)
 		print(num)
 		return num
-
-		
+class Numpersonas(ListView):
+	def get(self,request):
+		numPersona = Personas.objects.all()
+		print(len(numPersona.values("dni")))
+		return HttpResponse(len(numPersona.values("dni")), content_type="text/plain")
 
 		
