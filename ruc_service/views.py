@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.views.generic import ListView
 from timeit import timeit
 from .models import Proxy,Personas
+from django.db import connection
 class Ruc_service(ListView):
 	def randomip():
 		user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36'
