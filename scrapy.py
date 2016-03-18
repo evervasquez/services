@@ -4,6 +4,7 @@ import re
 import json
 import random
 import psycopg2
+import itertools
 cont=0
 conn = psycopg2.connect(dbname='proxys2' ,user='denys', host='localhost' ,password='123456')
 ip='50.201.223.217:80'
@@ -50,8 +51,6 @@ while(cont<=30000000):
             #print(sql)
             cont=cont+1
             print(cont)
-      else:
-            print("No participa")
-            cont=cont
+      print("No participa")
 conn.close()
 print("fin")
