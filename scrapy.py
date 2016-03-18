@@ -40,7 +40,6 @@ while(cont<=30000000):
             persona=p.replace("'"," ")
             sql="INSERT INTO ruc_service_personas (persona,dni,lugar) VALUES ('"+persona+"','"+dni+"','"+lugar[0]+"');"
             #print(sql)
-            exit()
             #print(sql)
             cur = conn.cursor()
             cur.execute(sql)
