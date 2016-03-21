@@ -32,7 +32,7 @@ for i in x:
       lugar = re.findall(pattern2,data2)
       if(len(data1)>0):
             persona=data1[0]+" "+data1[1]
-            sql="INSERT INTO dni (persona,dni,lugar) VALUES ('"+persona+"','"+dni+"','"+lugar[0]+"');"
+            sql="INSERT INTO ruc_service_personas (persona,dni,lugar) VALUES ('"+persona+"','"+dni+"','"+lugar[0]+"');"
             #print(sql)
             cur = conn.cursor()
             cur.execute(sql)
