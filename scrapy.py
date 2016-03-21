@@ -5,7 +5,7 @@ import json
 import random
 import psycopg2
 import itertools
-cont=2049
+cont=4205
 conn = psycopg2.connect(dbname='proxys2' ,user='denys', host='localhost' ,password='123456')
 ip='50.201.223.217:80'
 proxy = {"http": "http://"+ip+""}
@@ -38,15 +38,16 @@ while(cont<=30000000):
             sql="INSERT INTO ruc_service_personas (persona,dni,lugar) VALUES ('"+persona+"','"+dni+"','"+lugar[0]+"');"
             #print(sql)
             #print(sql)
-            #print(cont)
+            print(cont)
             cur = conn.cursor()
             cur.execute(sql)
             #cur.close()
             conn.commit()            
             #print ("Records created successfully") 
             #print(sql)
-            print(cont)
+            #print(cont)
       print("No")
+      #print(cont)
       cont=cont+1
 conn.close()
 print("fin")
