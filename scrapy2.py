@@ -6,7 +6,7 @@ import random
 import psycopg2
 import itertools
 cont=0
-conn = psycopg2.connect(dbname='proxys2' ,user='denys', host='localhost' ,password='123456')
+conn = psycopg2.connect(dbname='proxys' ,user='postgres', host='localhost' ,password='123456')
 ip='50.201.223.217:80'
 proxy = {"http": "http://"+ip+""}
 code = '0123456789'

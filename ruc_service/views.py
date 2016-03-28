@@ -35,22 +35,34 @@ class Ruc_service(ListView):
 			datafin[cont]=datafinal
 			cont=cont+1 
 		num=random.randint(1,len(datafin))
-		return (datafin[num][0]+':'+datafin[num][1])
-	def _data_Get():
-		datos=Ruc_service.connected()
-		while(datos==False):
-			datos=Ruc_service.connected()
-			if (datos==True):
-				break
+		ip=(datafin[num][0]+':'+datafin[num][1])
+		print(ip)
+		proxy = {"http": "http://"+ip+""}
+		try:
+			r = requests.get('http://google.com',proxies=proxy,timeout=3)
+		except requests.HTTPError as e:
+			print("Checking internet connection failed, status code.".format(e.response.status_code))
+			Ruc_service.randomip()
+		except requests.ConnectionError:
+			print("No internet connection available.")
+			Ruc_service.randomip()
+		else:
+			print ("All was fine")
+			return ip
+	def _data_Get(ruc):
+		ruc2=ruc
+		datos=Ruc_service.connected(ruc2)
 		data=datos
 		n_c= '(.*)'
 		pattern1 = re.compile(n_c)
 		data1 = re.findall(pattern1,data)#data1[0] es todo la data de la empresa 9 es el formato
-		if (data1[9]=="Formato XML"):
-			ali={0:'n1_ruc',1:'n1_alias',2:'n1_estado',3:'n1_condicion',4:'n1_ubigeo',5:'n1_ubigeo_dep',6:'n1_ubigeo_pro',7:'n1_ubigeo_dis'}
+		if (data1[0]=="Formato XML"):
+			print(data1[0])
+			ali={0:'n1_ruc',1:'n1_alias',2:'n1_estado',3:'n1_condicion',4:'n1_ubigeo',5:'n1_ubigeo_dep',6:'n1_ubigeo_pro',7:'n1_ubigeo_dis',8:'n1_direccion'}
 			cont=0
 			data={}
-			for val in data1[13:28]:
+			#print(data1[4:20])
+			for val in data1[4:21]:
 				if(val!=''):
 					borrartdf=val.replace("<"+ali[cont]+">","")
 					borrartdi=borrartdf.replace("</"+ali[cont]+">","")
@@ -59,8 +71,9 @@ class Ruc_service(ListView):
 				data[0]=data[0].replace("<root>","")
 			return HttpResponse(str(data), content_type="text/plain")
 		else:
-			if(data1[9]=='Formato JSON'):
-				borrartdf=data1[13:21][0].replace("[","")
+			if(data1[0]=='Formato JSON'):
+				print(data1[0])
+				borrartdf=data1[4].replace("[","")
 				borrartdi=borrartdf.replace("]","")
 				borrartdf2=borrartdi.replace("{","")
 				borrartdi2=borrartdf2.replace("}","")
@@ -69,15 +82,17 @@ class Ruc_service(ListView):
 				borrartdi4=borrartdi3.split(',')
 				data={}
 				cont=0
+				#print(borrartdi4)
 				for val in borrartdi4:
 					valor=val.split(':')
 					data[cont]=valor[1]
 					cont=cont+1
 				return HttpResponse(str(data), content_type="text/plain")
 			else:
+				#print(data1)
 				data={}
 				cont=0
-				for val in data1[13:36]:
+				for val in data1[8:36]:
 					if(val!=''):
 						values=val.split("=")
 						data[cont]=values[1]
@@ -86,19 +101,19 @@ class Ruc_service(ListView):
 
 
 	def get(self,request):
-		return (Ruc_service._data_Get())	
-	def connected():
+		ruc=request.GET['ruc']
+		return (Ruc_service._data_Get(ruc))	
+	def connected(ruc):
 		try:
 			ip=Ruc_service.randomip()
-			#ip="64.126.163.189:80"
-			print (ip)
 			proxy = {"http": "http://"+ip+""}
 			user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36'
-			headers={'User-Agent':user_agent,'Host':'webservice.miasoftware.net','Upgrade-Insecure-Requests':'1','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Encoding':'gzip,deflate,sdch','Accept-Language':'es-ES,es;q=0.8','Cache-Control':'no-cache','Connection':'keep-alive','Content-type':'text/html; charset=ISO-8859-1'}
-			data = {'ruc':'20600629922'}
+			headers={'User-Agent':user_agent,'Host':'ws.insite.pe','Upgrade-Insecure-Requests':'1','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Encoding':'gzip, deflate, sdch','Accept-Language':'es-ES,es;q=0.8','Cache-Control':'no-cache','Connection':'keep-alive','Content-type':'text/html; charset=ISO-8859-1','Cookie':'PHPSESSID=2ldrbf60pv5vh7hvg0eua17sr2'}
+			data = {'ruc':ruc}
+			print(data)
 			dat1=urllib.parse.urlencode(data)
 			filterProxy=Proxy.objects.filter(proxy=ip)
-			r =requests.get('http://webservice.miasoftware.net/service/sunat/test_ruc.php?ruc=20523477006',proxies=proxy,headers=headers,timeout=10)
+			r =requests.post('http://ws.insite.pe/sunat/test_ruc.php?ruc='+ruc,proxies=proxy,headers=headers,timeout=10)
 			if(len(filterProxy.values("proxy"))==0):
 				newProxy = Proxy(proxy=ip,fecha=time.strftime("%Y-%m-%d %H:%M:%S"),cantidad=1)
 				newProxy.save()
@@ -111,6 +126,7 @@ class Ruc_service(ListView):
 		except requests.ConnectionError:
 			print("No internet connection available.")
 			return False
+
 class Dni(ListView):
 	def get(self,request):
 		cont=0
