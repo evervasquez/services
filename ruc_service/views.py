@@ -56,6 +56,11 @@ class Ruc_service(ListView):
 		n_c= '(.*)'
 		pattern1 = re.compile(n_c)
 		data1 = re.findall(pattern1,data)#data1[0] es todo la data de la empresa 9 es el formato
+		print((data1[0]))
+		print(str(data1[4]))
+		if((data1[6]=='status_msg=RUC 20531588118 no existe')or(len(str(data1[4]))==13)or(len(str(data1[4]))==2)):
+			return HttpResponse(str("RUC "+ruc+" no existe"), content_type="text/plain")
+
 		if (data1[0]=="Formato XML"):
 			print(data1[0])
 			ali={0:'n1_ruc',1:'n1_alias',2:'n1_estado',3:'n1_condicion',4:'n1_ubigeo',5:'n1_ubigeo_dep',6:'n1_ubigeo_pro',7:'n1_ubigeo_dis',8:'n1_direccion'}
@@ -102,7 +107,16 @@ class Ruc_service(ListView):
 
 	def get(self,request):
 		ruc=request.GET['ruc']
-		return (Ruc_service._data_Get(ruc))	
+		try:
+			val = int(ruc)
+		except ValueError:
+			print("That's not an int!")
+		else:
+			if(len(ruc)==11):
+				return (Ruc_service._data_Get(ruc))
+			else:
+				return HttpResponse(str("EL ruc tiene que tener 11 digitos"), content_type="text/plain")
+
 	def connected(ruc):
 		try:
 			ip=Ruc_service.randomip()
